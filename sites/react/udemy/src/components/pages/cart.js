@@ -5,16 +5,23 @@ import {connect} from 'react-redux';
 import {Panel, Col, Row, Well, Button, ButtonGroup, Label, Modal} from 'react-bootstrap';
 import shortid from 'shortid'
 import {bindActionCreators} from 'redux';
-import {deleteCartItem, updateCart} from '../../actions/cartActions';
+import {deleteCartItem, updateCart, getCart} from '../../actions/cartActions';
 class Cart extends React.Component{
 
+
+
+
+    componentDidMount(){
+        this.props.getCart();
+    }
+
     onIncrement(_id){
-        this.props.updateCart(_id, 1);
+        this.props.updateCart(_id, 1, this.props.cart);
     }
 
     onDecrement(_id, quantity){
         if(quantity>1){
-            this.props.updateCart(_id, -1);
+            this.props.updateCart(_id, -1, this.props.cart);
         }
     }
     constructor(){
@@ -51,9 +58,16 @@ class Cart extends React.Component{
                 indexToDelete),
                 ...currentBookToDelete.slice(indexToDelete +
                     1)];
-        console.log(cartAfterDelete);
+
         this.props.deleteCartItem(cartAfterDelete);
     }
+
+
+
+
+
+
+
     render(){
         if(this.props.cart[0]){
             return this.renderCart();
@@ -145,6 +159,7 @@ const mapDistpatchTopProps = (dispatch) =>{
     return bindActionCreators({
         deleteCartItem: deleteCartItem,
         updateCart: updateCart,
+        getCart: getCart,
 
     }, dispatch)
 };

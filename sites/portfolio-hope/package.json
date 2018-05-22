@@ -1,6 +1,6 @@
 {
   "name": "udemy",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "scripts": {
     "start": "nodemon --exec babel-node ./bin/www & nodemon --exec babel-node apiServer.js",
